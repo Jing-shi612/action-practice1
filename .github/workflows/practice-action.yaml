@@ -1,0 +1,33 @@
+name: workflow practice
+on: push
+jobs:
+  lint:
+    run-on: ubuntus-latest
+    steps:
+      - name: get code 
+        uses: actions/checkout@v3
+      - name: install dependencies
+        run: npm ci
+      - name: run code
+        run: npm lint
+  test:
+    needs: lint
+    run-on: ubuntus-latest
+    steps:
+      - name: get code 
+        uses: actions/checkout@v3
+      - name: install dependencies
+        run: npm ci
+      - name: run code
+        run: npm test
+  build:
+    needs: test
+    run-on: ubuntus-latest
+    steps:
+      - name: get code 
+        uses: actions/checkout@v3
+      - name: install dependencies
+        run: npm ci
+      - name: run code
+        run: npm build
+   
